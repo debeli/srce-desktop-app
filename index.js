@@ -28,9 +28,15 @@ function createWindow() {
                     }
                 },
                 {
-                    label: 'Add person',
+                    label: 'Add gender',
                     click() {
-                        DBHelper.addPersonToDb();
+                        DBHelper.populateGender();
+                    }
+                },
+                {
+                    label: 'Add caller',
+                    click() {
+                        DBHelper.addDjole();
                     }
                 }
             ]

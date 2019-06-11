@@ -13,7 +13,10 @@ const dbName = '/srce.db';
 const pathToDatabase = path.join(__dirname, dbName);
 
 // Entitys
-const Person = require('./entity/Person').Person;
+
+const Gender = require('./entity/Gender').Gender;
+
+const Caller = require('./entity/Caller').Caller;
 
 function checkIfDatabaseExists() {
     fs.access(pathToDatabase, fs.F_OK, e => {
@@ -72,7 +75,29 @@ async function saveToDb(entity, data) {
     }
 }
 
-exports.addPersonToDb = () => {
-    const person = new Person(0, 'djordje', 'Ljubicic');
-    saveToDb('Person', person);
+async function readFormDb(entity, data) {
+    const repo = typeorm.getRepository(entity);
+    let result;
+    try {
+        result = repo.find(data);
+    } catch (error) {
+        console.log(error);
+    }
+    return result;
+}
+
+exports.populateGender = () => {
+    const male = new Gender('male');
+    saveToDb('Gender', male);
+    const female = new Gender('female');
+    saveToDb('Gender', female);
+    const any = new Gender('any');
+    saveToDb('Gender', any);
+};
+
+exports.addDjole = () => {
+    readFormDb('Gender', { gender: 'male' }).then(data => {
+        const caller = new Caller('Djole', data[0].id);
+        saveToDb('Caller', caller);
+    });
 };
