@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import Navigation from './navigation/components/Navigation.jsx';
-import Routes from './Routes.jsx';
+import Routes from './navigation/components/Routes'
 
 class App extends Component {
-    render () {
+
+    render() {
+        window.localStorage.setItem("route", "/");
         return (
-            <div className='container-fluid'>
-                <div className="row">
-                <Navigation/>
+            <React.Fragment >
                 <Routes />
-                </div>
-            </div>
+            </React.Fragment>
         );
     }
 };

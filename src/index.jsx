@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from "react-dom";
-import { HashRouter, Route, Link } from "react-router-dom";
 import './appEntry.scss';
 import App from './App.jsx';
-import 'bootstrap';
+import './Helpers.css'
+import { ThemeProvider } from './theme/ThemeContext';
 
 const app = document.getElementById('app');
-ReactDOM.render(<HashRouter><App/></HashRouter>, app);
+ReactDOM.render(<ThemeProvider><App /></ThemeProvider>, app);
