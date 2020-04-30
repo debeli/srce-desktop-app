@@ -1,5 +1,7 @@
 # srce-desktop-app
 
+![Build Status](https://nsoss.semaphoreci.com/badges/srce-desktop-app.svg)
+
 ## Setup
 
 Make sure you have the latest version of [Node.js](https://nodejs.org/en/)
@@ -16,3 +18,7 @@ if you use Windows, or `bash rebuild_script` for Linux.
 `index.html` for loading JavaScript.
 
 `npm dev` will track live changes for CSS and JS files
+
+## Design
+
+[Figma](https://www.figma.com/file/3GkovVdGabhJmCOXC4X5Pi/srce-desktop-app?node-id=1%3A14)

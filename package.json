@@ -1,13 +1,21 @@
 {
+  "name": "srce-desktop-app",
+  "version": "0.1.2",
   "description": "Desktop application for Centar Srce",
+  "author": {
+    "name": "The Novi Sad Open Source Software Initiative",
+    "url": "https://nsoss.org/"
+  },
   "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/nsoss/srce-desktop-app.git"
   },
+  "main": "electron/index.js",
+  "homepage": "./",
   "dependencies": {
+    "@types/node": "12.12.28",
     "bootstrap": "^4.3.1",
-    "concurrently": "^5.0.0",
     "d3-array": "^2.4.0",
     "d3-axis": "^1.0.12",
     "d3-brush": "^1.1.5",
@@ -16,44 +24,58 @@
     "d3-shape": "^1.3.7",
     "d3-svg-legend": "^2.25.6",
     "d3-transition": "^1.3.2",
-    "electron": "^7.1.2",
+    "date-fns": "2.9.0",
+    "electron-is-dev": "1.1.0",
     "electron-log": "^4.0.0",
-    "electron-rebuild": "^1.8.8",
+    "electron-updater": "4.2.2",
     "export-to-csv": "^0.2.1",
-    "node-sass": "^4.12.0",
-    "prettier": "^1.17.1",
+    "prettier": "1.19.1",
     "react": "^16.8.6",
     "react-bootstrap": "1.0.0-beta.16",
     "react-dom": "^16.8.6",
     "react-icons": "^3.8.0",
-    "reflect-metadata": "^0.1.13",
-    "sequelize": "^5.21.2",
-    "sequelize-cli": "^5.5.1",
+    "react-redux": "^7.1.3",
+    "react-scripts": "3.4.0",
+    "react-text-mask": "^5.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "sqlite3": "^4.1.0",
-    "wait-on": "^3.3.0"
+    "text-mask-addons": "^3.8.0",
+    "typeorm": "0.2.22",
+    "typescript": "3.8.2"
+  },
+  "devDependencies": {
+    "electron": "8.0.1",
+    "electron-builder": "22.3.2"
   },
   "peerDependencies": {
     "jquery": "^3.4.0",
     "popper.js": "^1.14.3"
   },
   "scripts": {
-    "start": "concurrently \"npm run react-start\" \"wait-on http://localhost:3000 && electron .\"",
-    "react-start": "react-scripts start",
-    "build": "react-scripts build"
+    "postinstall": "electron-builder install-app-deps",
+    "start": "react-scripts start",
+    "start-electron": "tsc --project ./electron/ && electron .",
+    "build": "react-scripts build",
+    "build-electron": "tsc --project ./electron/ && mkdir -p ./build/electron/ && cp ./electron/index.js ./build/electron",
+    "lint": "prettier --check \"./{src,main}/**/*.{js,jsx,ts}\"",
+    "format": "prettier --write \"./{src,main}/**/*.{js,jsx,ts}\"",
+    "preflight": "yarn build && yarn build-electron && electron-builder --dir -c.extraMetadata.main=build/electron/index.js --publish never",
+    "package": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish never",
+    "deploy": "electron-builder --win -c.extraMetadata.main=build/electron/index.js --publish always"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "rules": {
+      "no-console": "error"
+    }
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
     "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
+      "last 1 electron version"
+    ],
+    "production": [
+      "last 1 electron version"
     ]
   }
 }
